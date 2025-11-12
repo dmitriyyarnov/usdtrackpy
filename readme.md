@@ -20,7 +20,7 @@
 ### Построение графика
     python -m app.plot
 
-Запуск FastAPI:  
+### Запуск FastAPI:  
      
     uvicorn app.main:app --reload
 Эндпоинт: `GET /rates`  
