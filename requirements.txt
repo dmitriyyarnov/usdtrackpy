@@ -1,8 +1,5 @@
-beautifulsoup4
-requests
-datetime
-matplotlib
 fastapi
-config
-lxml
 uvicorn
+requests
+beautifulsoup4
+matplotlib
