@@ -15,7 +15,7 @@
     pip install -r requirements.txt
 
 ### Сбор первого курса USD
-    python -m app.scraper
+    python -m app.main
 
 ### Построение графика
     python -m app.plot
