@@ -4,7 +4,7 @@ import json
 
 DATA_FOLDER = "data"
 
-app = FastAPI(title="USD Rates API")
+app = FastAPI(title="USD track Python API")
 
 @app.get("/rates")
 def get_rates(
