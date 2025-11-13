@@ -25,6 +25,8 @@
 Эндпоинт: `GET /rates`  
 Параметры: limit (по умолчанию 10) — количество записей; sort (asc/desc, по умолчанию desc) — сортировка по дате 
 Пример запросов: 'http://127.0.0.1:8000/rates', 'GET http://127.0.0.1:8000/rates?limit=5&sort=asc'
+<img width="782" height="152" alt="image" src="https://github.com/user-attachments/assets/d26e8d66-edd9-4835-a68e-84e24ec2433f" />
+
 
 Swagger UI: 'http://127.0.0.1:8000/docs'
 
