@@ -1,45 +1,39 @@
 from fastapi import FastAPI, Query, HTTPException
-from pathlib import Path
-import csv
-from datetime import datetime
-from app.scraper import USDRateScraper
-from config import DATA_FOLDER
+import os
+import json
 
-CSV_FILE = Path(DATA_FOLDER) / "usd_rates.csv"
+DATA_FOLDER = "data"
 
 app = FastAPI(title="USD Rates API")
 
-scraper = USDRateScraper()
-scraper.run()
-
 @app.get("/rates")
-def get_rates(limit: int = Query(10, ge=1, le=100),
-              sort: str = Query("desc", regex="^(asc|desc)$")):
-    if not CSV_FILE.exists():
-        raise HTTPException(status_code=404, detail="Нет данных")
+def get_rates(
+    limit: int = Query(10, ge=1, le=100),
+    sort: str = Query("desc", pattern="^(asc|desc)$")
+):
+    if not os.path.exists(DATA_FOLDER) or len(os.listdir(DATA_FOLDER)) == 0:
+        raise HTTPException(status_code=404, detail="Нет доступных данных о курсах")
 
-    rates = []
-    with open(CSV_FILE, newline="", encoding="utf-8") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            try:
-                rates.append({
-                    "date": row["date"],
-                    "rate": float(row["rate"]),
-                    "currency": row["currency"],
-                    "source": row["source"],
-                    "updated_at": row["updated_at"]
-                })
-            except (ValueError, KeyError):
-                continue
+    files = [f for f in os.listdir(DATA_FOLDER) if f.endswith(".json")]
 
-    if not rates:
-        raise HTTPException(status_code=404, detail="Нет корректных данных")
+    files = sorted(
+        files,
+        key=lambda f: os.path.getmtime(os.path.join(DATA_FOLDER, f)),
+        reverse=(sort == "desc")
+    )
 
-    rates.sort(key=lambda x: datetime.fromisoformat(x["date"]), reverse=(sort == "desc"))
+    files = files[:limit]
 
-    return rates[:limit]
+    result = []
+    for file in files:
+        path = os.path.join(DATA_FOLDER, file)
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                result.append(json.load(f))
+        except json.JSONDecodeError:
+            continue
 
+    return result
 
 
 
