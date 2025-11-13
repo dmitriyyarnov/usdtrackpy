@@ -6,8 +6,7 @@
 
 2. Анализ и визуализация
    - Автоматически запускается скрейпер, если CSV отсутствует.
-   - График строится по данным CSV (data/usd_rates.csv).
-   
+   - График строится по данным CSV (data/usd_rates.csv): https://github.com/dmitriyyarnov/usdtrackpy/blob/dev/rate.png
 3. API для получения исторических курсов USD из CSV-файлов (data/).
    - Параметры: limit (1–100, по умолчанию 10), sort (asc/desc, по умолчанию desc).
 
