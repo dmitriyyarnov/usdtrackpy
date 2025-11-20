@@ -76,7 +76,7 @@ def run_scraper():
         print(f"Курс USD успешно сохранён: {rate} RUB на {date_str}")
 
     except Exception as e:
-        print(f"Не удалось выполнить скрейпер: {e}")
+        print(f"Не удалось выполнить скрапер: {e}")
 
 
 if __name__ == "__main__":
