@@ -1,0 +1,8 @@
+beautifulsoup4
+requests
+datetime
+matplotlib
+fastapi
+config
+lxml
+uvicorn
